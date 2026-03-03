@@ -1,11 +1,11 @@
-﻿using Intellenum;
+using Soenneker.Gen.EnumValues;
 
 namespace Soenneker.SemanticKernel.Enums.KernelType;
 
 /// <summary>
 /// Represents the type of Semantic Kernel being requested or used. This helps differentiate between different AI workloads such as chat, completion, image generation, embeddings, and audio processing.
 /// </summary>
-[Intellenum<string>]
+[EnumValue<string>]
 public partial class KernelType
 {
     /// <summary>

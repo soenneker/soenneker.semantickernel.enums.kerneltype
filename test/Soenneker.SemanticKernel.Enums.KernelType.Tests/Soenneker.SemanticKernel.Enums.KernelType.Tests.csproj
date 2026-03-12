@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Soenneker.SemanticKernel.Enums.KernelType.csproj" />
+        <ProjectReference Include="..\..\src\Soenneker.SemanticKernel.Enums.KernelType\Soenneker.SemanticKernel.Enums.KernelType.csproj" />
     </ItemGroup>
 
     <ItemGroup>

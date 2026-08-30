@@ -5,24 +5,54 @@
 
 # Soenneker.SemanticKernel.Enums.KernelType
 
-Represents the type of Semantic Kernel being requested or used. This helps differentiate between different AI workloads such as chat, completion, image generation, embeddings, and audio processing.
+A source-generated string value type for classifying Semantic Kernel workloads.
 
-## Install
+## Installation
 
 ```bash
 dotnet add package Soenneker.SemanticKernel.Enums.KernelType
 ```
 
-## What you get
+## Values
 
-- `KernelType` — Represents the type of Semantic Kernel being requested or used. This helps differentiate between different AI workloads such as chat, completion, image generation, embeddings, and audio processing.
+- `KernelType.Chat`
+- `KernelType.Completion`
+- `KernelType.Image`
+- `KernelType.Embedding`
+- `KernelType.Audio`
 
-## API at a glance
+Each underlying string value matches its member name, such as `"Chat"` and `"Embedding"`.
 
-| API | What it does | Result / important behavior |
-| --- | --- | --- |
-| `KernelType.Chat` | A kernel used for chat-based interactions, such as multi-turn conversations with role-based message context (e.g., GPT-4, GPT-3.5-turbo). | A kernel used for chat-based interactions, such as multi-turn conversations with role-based message context (e.g., GPT-4, GPT-3.5-turbo). |
-| `KernelType.Completion` | A kernel used for single-prompt text completion, typically non-conversational (e.g., text-davinci-003). | A kernel used for single-prompt text completion, typically non-conversational (e.g., text-davinci-003). |
-| `KernelType.Image` | A kernel used for text-to-image generation models (e.g., DALL·E, Stable Diffusion). | A kernel used for text-to-image generation models (e.g., DALL·E, Stable Diffusion). |
-| `KernelType.Embedding` | A kernel used for generating vector embeddings from text for similarity search, RAG, or classification tasks (e.g., text-embedding-3-small). | A kernel used for generating vector embeddings from text for similarity search, RAG, or classification tasks (e.g., text-embedding-3-small). |
-| `KernelType.Audio` | A kernel used for audio-related tasks, such as speech-to-text transcription or text-to-speech synthesis (e.g., Whisper). | A kernel used for audio-related tasks, such as speech-to-text transcription or text-to-speech synthesis (e.g., Whisper). |
+## Usage
+
+```csharp
+using Soenneker.SemanticKernel.Enums.KernelType;
+
+KernelType type = KernelType.Chat;
+
+if (type == KernelType.Chat)
+{
+    // Select chat-specific connector or execution behavior.
+}
+```
+
+Parse untrusted input without throwing:
+
+```csharp
+if (!KernelType.TryFromValue(input, out KernelType type))
+{
+    return Results.BadRequest("Unsupported kernel type.");
+}
+```
+
+Known values can also be retrieved with `FromValue`, `TryFromName`, and `FromName`. Name and value lookups are ordinal and case-sensitive.
+
+The generated JSON converter reads and writes the underlying string:
+
+```json
+{
+  "type": "Embedding"
+}
+```
+
+Unknown JSON values fail deserialization. `KernelType` is descriptive metadata only; assigning a value does not register a Semantic Kernel connector or enforce which operations a kernel supports. The application or pool consuming it must select the corresponding implementation.
